@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
@@ -5,12 +6,10 @@ const userSchema = new Schema({
   username: {
     type: String,
     required: true,
-    unique: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true,
   },
   password: {
     type: String,
@@ -18,7 +17,6 @@ const userSchema = new Schema({
   },
   img: {
     type: String,
-    required: false,
   },
   country: {
     type: String,
@@ -26,18 +24,19 @@ const userSchema = new Schema({
   },
   phone: {
     type: String,
-    required: true,
   },
   desc: {
     type: String,
-    required: true,
   },
   isSeller: {
     type: Boolean,
     default: false,
-  }
-},{
-  
-    timestamps:true},
+  },
+},
+{
+  timestamps: true,
+}
 );
-export default mongoose.model('User',userSchema)
+// export default mongoose.model("User", userSchema)
+const User = mongoose.model("users", userSchema);
+export default User;

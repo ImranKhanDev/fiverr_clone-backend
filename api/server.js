@@ -13,6 +13,7 @@ const app = express();
 dotenv.config();
 mongoose.set("strictQuery", true);
 
+app.use(express.json())
 //*connecting mongoose
 const connect = async () => {
   try {
@@ -34,4 +35,6 @@ app.use("/api/reviews", reviewRoute);
 app.listen(8080, () => {
   connect();
   console.log("backend server is running");
-});
+})
+
+
