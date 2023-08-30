@@ -8,12 +8,15 @@ import conversationRoute from "./routes/user.route.js";
 import messageRoute from "./routes/user.route.js";
 import reviewRoute from "./routes/user.route.js";
 import authRoute from "./routes/auth.route.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 dotenv.config();
 mongoose.set("strictQuery", true);
 
+//* middleware
 app.use(express.json())
+app.use(cookieParser())
 //*connecting mongoose
 const connect = async () => {
   try {
@@ -32,6 +35,11 @@ app.use("/api/conversations", conversationRoute);
 app.use("/api/message", messageRoute);
 app.use("/api/reviews", reviewRoute);
 
+app.use((err,req,res,next)=>{
+  const errorStatus = err.status || 500;
+  const errorMsg = err.message || "Something went wrong";
+  return res.status(errorStatus).send(errorMsg)
+})
 app.listen(8080, () => {
   connect();
   console.log("backend server is running");
